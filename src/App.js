@@ -45,10 +45,10 @@ function App()
 		}
 		console.log(state.value);
 
-		if (state.value !== 'Loading')
-		{
-			findDeepest(state.value)
-		}
+		// if (state.value !== 'Loading')
+		// {
+		findDeepest(state.value)
+		// }
 
 		authenticateToken().then((response) =>
 		{
