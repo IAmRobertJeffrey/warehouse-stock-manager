@@ -74,12 +74,12 @@ export const AppMachine =
 							"Scan": {
 								"on": {
 									"onScan": {
+										"actions": assign({ initialBarcode: (context, event) => event.initialBarcode }),
 										"target": "Loading"
 									}
 								}
 							},
 							"Loading": {
-								"actions": assign({ initialBarcode: (context, event) => event.initialBarcode }),
 								"invoke": {
 									"src": checkInitialBarcode,
 									"id": "checkInitialBarcode",
