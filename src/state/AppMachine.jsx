@@ -59,11 +59,13 @@ const checkInitialBarcode = async (context, event) =>
 
 	if (JSON.stringify(data) !== JSON.stringify(doesNotExist))
 	{
+		window.alert("The barcode does exist. -----" + JSON.stringify(data))
 		assign({ initialScanResults: data })
 		return true;
 	}
 	else
 	{
+		window.alert("The barcode does not exist. -----" + JSON.stringify(data))
 		return false;
 	}
 }
