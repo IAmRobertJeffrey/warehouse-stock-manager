@@ -71,7 +71,7 @@ function App()
 				<Route path='/Search' element={<Search />} />
 				<Route path='/Scan' element={<Scan />} />
 				<Route path='/Login' element={<Login />} />
-				<Route path='/AddProductOrLocation' element={<AddProductOrLocation />} />
+				<Route path='/AddNewProductOrLocation' element={<AddProductOrLocation />} />
 				<Route path='/AddStock' element={<AddStock />} />
 				<Route path='/MoveStock' element={<MoveStock />} />
 				<Route path='/RemoveStock' element={<RemoveStock />} />
