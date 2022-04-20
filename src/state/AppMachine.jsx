@@ -79,6 +79,7 @@ export const AppMachine =
 								}
 							},
 							"Loading": {
+								"actions": assign({ initialBarcode: (context, event) => event.initialBarcode }),
 								"invoke": {
 									"src": checkInitialBarcode,
 									"id": "checkInitialBarcode",
