@@ -139,26 +139,25 @@ export const AppMachine =
 							"Scan": {
 								"on": {
 									"onScan": {
+										"invoke": {
+											"src": checkInitialBarcode,
+											"id": "checkInitialBarcode",
+											"onDone":
+											{
+												"target": "Results"
+											},
+											"onError":
+											{
+												"target": "AddNewProductOrLocation"
+											}
+										},
 										"actions": assign({ initialBarcode: (context, event) => event.initialBarcode }),
 										"target": "Loading"
 									}
 								}
 							},
 							"Loading": {
-								"invoke": {
-									"src": checkInitialBarcode,
-									"id": "checkInitialBarcode",
-									"onDone": [
-										{
-											"target": "Results"
-										}
-									],
-									"onError": [
-										{
-											"target": "AddNewProductOrLocation"
-										}
-									]
-								}
+								"target": "Scan"
 							},
 							"AddNewProductOrLocation": {
 								"on": {
@@ -170,7 +169,7 @@ export const AppMachine =
 												"target": "Scan"
 											},
 											"onError": {
-
+												"target": "Scan"
 											}
 										},
 										"target": "Scan"
