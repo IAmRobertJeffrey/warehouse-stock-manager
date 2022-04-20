@@ -47,6 +47,7 @@ const addProductOrLocation = async (context, event) =>
 
 const checkInitialBarcode = async (context, event) =>
 {
+	window.alert("Test alert");
 	const response = await fetch(`${context.apiLocation}/product_location/barcode/${context.initialBarcode}`, {
 		method: "POST",
 		headers: {
@@ -71,7 +72,7 @@ const checkInitialBarcode = async (context, event) =>
 	else
 	{
 		window.alert("The barcode does not exist. -----" + JSON.stringify(data))
-		return false;
+		return Error;
 	}
 }
 
@@ -139,25 +140,26 @@ export const AppMachine =
 							"Scan": {
 								"on": {
 									"onScan": {
-										"invoke": {
-											"src": checkInitialBarcode,
-											"id": "checkInitialBarcode",
-											"onDone":
-											{
-												"target": "Results"
-											},
-											"onError":
-											{
-												"target": "AddNewProductOrLocation"
-											}
-										},
 										"actions": assign({ initialBarcode: (context, event) => event.initialBarcode }),
 										"target": "Loading"
 									}
 								}
 							},
 							"Loading": {
-								"target": "Scan"
+								"invoke": {
+									"src": checkInitialBarcode,
+									"id": "checkInitialBarcode",
+									"onDone": [
+										{
+											"target": "Results"
+										}
+									],
+									"onError": [
+										{
+											"target": "AddNewProductOrLocation"
+										}
+									]
+								}
 							},
 							"AddNewProductOrLocation": {
 								"on": {
