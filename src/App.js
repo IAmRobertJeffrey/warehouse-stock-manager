@@ -22,7 +22,7 @@ function App()
 	{
 		if (localStorage.getItem("token") !== null)
 		{
-			// send("onUseToken")
+			send("onUseToken")
 		}
 	}, [])
 
