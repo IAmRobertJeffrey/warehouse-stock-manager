@@ -6,10 +6,32 @@ const logout = () =>
 	return true;
 }
 
-const checkInitialBarcode = (context, event) =>
+const checkInitialBarcode = async (context, event) =>
 {
-	window.alert(context.initialBarcode)
-	return true;
+	window.alert(context.initialBarcode);
+	const response = await fetch(`${context.apiLocation}/product_location/barcode/${context.initialBarcode}`, {
+		method: "POST",
+		headers: {
+			authorization: localStorage.getItem("token"),
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	})
+	const data = await response.json();
+
+	const doesNotExist =
+	{
+		response: "Barcode does not exist."
+	}
+
+	if (JSON.stringify(data) !== JSON.stringify(doesNotExist))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 const validateLogin = (context, event) =>
