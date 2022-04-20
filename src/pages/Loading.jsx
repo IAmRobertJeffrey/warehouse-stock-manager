@@ -1,13 +1,13 @@
 import React from 'react'
 import { DotLoader } from 'react-spinners'
-import { Wrapper } from '../style/Generic.styled'
+import { LoadingWrapper } from '../style/Generic.styled'
 
 const Loading = () =>
 {
 	return (
-		<Wrapper style={{ alignItems: "center", justifyContent: "center" }}>
+		<LoadingWrapper>
 			<DotLoader color='#5e81ac' />
-		</Wrapper>
+		</LoadingWrapper>
 	)
 }
 
