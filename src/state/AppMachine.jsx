@@ -1,14 +1,47 @@
 import { assign, createMachine } from "xstate";
 
+
 const logout = () =>
 {
 	localStorage.removeItem("token");
 	return true;
 }
 
+const addProductOrLocation = async (context, event) =>
+{
+	if (context.initialScanResults.result.type === "product")
+	{
+		const obj =
+		{
+			product_name: context.newProductName,
+			product_barcode: context.initialBarcode,
+			product_reference: context.newProductReference
+		}
+
+		const response = await fetch(`${context.apiLocation}/product`, {
+			method: "POST",
+			headers: {
+				authorization: localStorage.getItem("token"),
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(obj)
+
+		})
+		const data = await response.json();
+		if (data)
+		{
+			return true;
+		}
+	}
+	else if (context.initialScanResults.result.type === "location")
+	{
+
+	}
+}
+
 const checkInitialBarcode = async (context, event) =>
 {
-	window.alert(context.initialBarcode);
 	const response = await fetch(`${context.apiLocation}/product_location/barcode/${context.initialBarcode}`, {
 		method: "POST",
 		headers: {
@@ -26,6 +59,7 @@ const checkInitialBarcode = async (context, event) =>
 
 	if (JSON.stringify(data) !== JSON.stringify(doesNotExist))
 	{
+		assign({ initialScanResults: data })
 		return true;
 	}
 	else
@@ -76,7 +110,11 @@ export const AppMachine =
 		context: {
 			loginData: { username: '', password: '' },
 			apiLocation: 'https://api.warehouse.robertjeffrey.co.uk',
-			initialBarcode: ''
+			initialBarcode: '',
+			initialScanResults: [],
+			newProductName: '',
+			newProductReference: '',
+			newProductOrLocation: 'Product'
 		},
 		"initial": "Logged Out",
 		"states": {
@@ -120,6 +158,16 @@ export const AppMachine =
 							"AddNewProductOrLocation": {
 								"on": {
 									"onFinishAddProductOrLocation": {
+										"invoke": {
+											"src": addProductOrLocation,
+											"id": "AddProductOrLocation",
+											"onDone": {
+												"target": "Scan"
+											},
+											"onError": {
+
+											}
+										},
 										"target": "Scan"
 									}
 								}
