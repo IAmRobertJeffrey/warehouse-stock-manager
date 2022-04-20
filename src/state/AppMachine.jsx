@@ -9,40 +9,40 @@ const logout = () =>
 
 const addProductOrLocation = async (context, event) =>
 {
-	if (context.initialScanResults.result.type === "product")
+	// if (context.initialScanResults.result.type === "product")
+	// {
+	const obj =
 	{
-		const obj =
-		{
-			product_name: context.newProductData.newProductName,
-			product_barcode: context.initialBarcode,
-			product_reference: context.newProductData.newProductReference
-		}
-
-		const response = await fetch(`${context.apiLocation}/product`, {
-			method: "POST",
-			headers: {
-				authorization: localStorage.getItem("token"),
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(obj)
-
-		})
-		const data = await response.json();
-		if (data)
-		{
-			window.alert(JSON.stringify(data))
-			return true;
-		}
-		else
-		{
-			window.alert(JSON.stringify("nothing " + data))
-		}
+		product_name: context.newProductData.newProductName,
+		product_barcode: context.initialBarcode,
+		product_reference: context.newProductData.newProductReference
 	}
-	else if (context.initialScanResults.result.type === "location")
+
+	const response = await fetch(`${context.apiLocation}/product`, {
+		method: "POST",
+		headers: {
+			authorization: localStorage.getItem("token"),
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(obj)
+
+	})
+	const data = await response.json();
+	if (data)
 	{
-
+		window.alert(JSON.stringify(data))
+		return true;
 	}
+	else
+	{
+		window.alert(JSON.stringify("nothing " + data))
+	}
+	// }
+	// else if (context.initialScanResults.result.type === "location")
+	// {
+
+	// }
 }
 
 const checkInitialBarcode = async (context, event) =>
