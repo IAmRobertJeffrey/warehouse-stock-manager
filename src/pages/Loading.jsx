@@ -6,7 +6,7 @@ const Loading = () =>
 {
 	return (
 		<LoadingWrapper>
-			<DotLoader color='#5e81ac' />
+			<DotLoader color='#88c0d0' />
 		</LoadingWrapper>
 	)
 }

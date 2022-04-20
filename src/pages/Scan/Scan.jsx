@@ -14,12 +14,7 @@ const Scan = () =>
 		<>
 			<Nav />
 			<Wrapper>
-
-				<ScannerPlugin qrCodeSuccessCallback={() =>
-				{
-
-				}} />
-
+				<ScannerPlugin qrCodeSuccessCallback={(e) => send({ type: "onScan", initialBarcode: e })} />
 			</Wrapper>
 		</>
 	)

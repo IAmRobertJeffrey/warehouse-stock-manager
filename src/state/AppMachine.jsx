@@ -6,6 +6,12 @@ const logout = () =>
 	return true;
 }
 
+const checkInitialBarcode = (context, event) =>
+{
+	window.alert(context.initialBarcode)
+	return true;
+}
+
 const validateLogin = (context, event) =>
 {
 	if (event.loginData.username !== '' && event.loginData.password !== '')
@@ -47,7 +53,8 @@ export const AppMachine =
 	createMachine({
 		context: {
 			loginData: { username: '', password: '' },
-			apiLocation: 'https://api.warehouse.robertjeffrey.co.uk'
+			apiLocation: 'https://api.warehouse.robertjeffrey.co.uk',
+			initialBarcode: ''
 		},
 		"initial": "Logged Out",
 		"states": {
@@ -72,12 +79,15 @@ export const AppMachine =
 								}
 							},
 							"Loading": {
-								"on": {
-									"onLoad": [
+								"invoke": {
+									"src": checkInitialBarcode,
+									"id": "checkInitialBarcode",
+									"onDone": [
 										{
-											"cond": "resultsExist",
-											"target": "Result"
-										},
+											"target": "Results"
+										}
+									],
+									"onError": [
 										{
 											"target": "AddNewProductOrLocation"
 										}
@@ -91,7 +101,7 @@ export const AppMachine =
 									}
 								}
 							},
-							"Result": {
+							"Results": {
 								"on": {
 									"onAddStock": {
 										"target": "AddStockQuantity"
