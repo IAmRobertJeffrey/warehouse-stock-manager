@@ -31,7 +31,12 @@ const addProductOrLocation = async (context, event) =>
 		const data = await response.json();
 		if (data)
 		{
+			window.alert(JSON.stringify(data))
 			return true;
+		}
+		else
+		{
+			window.alert(JSON.stringify("nothing " + data))
 		}
 	}
 	else if (context.initialScanResults.result.type === "location")
