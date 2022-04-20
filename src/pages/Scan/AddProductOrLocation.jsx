@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Wrapper } from '../../style/Generic.styled'
 import Nav from '../../components/Nav'
 import { useContext } from 'react'
@@ -8,6 +8,9 @@ import { AddNewProductOrLocationButton, AddNewProductOrLocationForm, AddNewProdu
 const AddProductOrLocation = () =>
 {
 	const { state, send } = useContext(MachineContext);
+	const [productOrLocation, setProductOrLocation] = useState('Product')
+	const [newProductForm, setNewProductForm] = useState({ newProductName: '', newProductReference: '' })
+	const [newLocationForm, setNewLocationForm] = useState({ newLocationName: '' })
 
 	return (
 		<>
@@ -15,9 +18,9 @@ const AddProductOrLocation = () =>
 			<Wrapper>
 				<AddNewProductOrLocationForm>
 					<AddNewProductOrLocationInputLabel>Product Name</AddNewProductOrLocationInputLabel>
-					<AddNewProductOrLocationInput value={state.context.newProductName} onChange={(e) => send({ newProductName: e.target.value })} type={"text"} />
+					<AddNewProductOrLocationInput value={newProductForm.newProductName} onChange={(e) => setNewProductForm({ ...newProductForm, newProductName: e.target.value })} type={"text"} />
 					<AddNewProductOrLocationInputLabel>Product Reference</AddNewProductOrLocationInputLabel>
-					<AddNewProductOrLocationInput value={state.context.newProductReference} onChange={(e) => send({ newProductReference: e.target.value })} type={"text"} />
+					<AddNewProductOrLocationInput value={newProductForm.newProductReference} onChange={(e) => setNewProductForm({ ...newProductForm, newProductReference: e.target.value })} type={"text"} />
 					<AddNewProductOrLocationButton onClick={(e) => { e.preventDefault(); send({ type: "onFinishAddProductOrLocation" }) }}>Add Product</AddNewProductOrLocationButton>
 				</AddNewProductOrLocationForm>
 			</Wrapper>

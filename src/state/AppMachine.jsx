@@ -13,9 +13,9 @@ const addProductOrLocation = async (context, event) =>
 	{
 		const obj =
 		{
-			product_name: context.newProductName,
+			product_name: context.newProductData.newProductName,
 			product_barcode: context.initialBarcode,
-			product_reference: context.newProductReference
+			product_reference: context.newProductData.newProductReference
 		}
 
 		const response = await fetch(`${context.apiLocation}/product`, {
@@ -112,9 +112,7 @@ export const AppMachine =
 			apiLocation: 'https://api.warehouse.robertjeffrey.co.uk',
 			initialBarcode: '',
 			initialScanResults: [],
-			newProductName: '',
-			newProductReference: '',
-			newProductOrLocation: 'Product'
+			newProductData: { newProductName: '', newProductReference: '' }
 		},
 		"initial": "Logged Out",
 		"states": {
