@@ -11,6 +11,7 @@ import AddStock from './pages/Scan/AddStock';
 import MoveStock from './pages/Scan/MoveStock';
 import RemoveStock from './pages/Scan/RemoveStock'
 import Results from './pages/Scan/Results'
+import Loading from "./pages/Loading";
 
 function App()
 {
@@ -21,7 +22,7 @@ function App()
 	{
 		if (localStorage.getItem("token") !== null)
 		{
-			send("onUseToken")
+			// send("onUseToken")
 		}
 	}, [])
 
@@ -66,6 +67,7 @@ function App()
 	return (
 		<AppWrapper>
 			<Routes>
+				<Route path='/Loading' element={<Loading />} />
 				<Route path='/Search' element={<Search />} />
 				<Route path='/Scan' element={<Scan />} />
 				<Route path='/Login' element={<Login />} />
