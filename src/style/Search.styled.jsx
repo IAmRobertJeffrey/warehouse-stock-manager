@@ -21,6 +21,7 @@ export const SearchTableHeading = styled.th`
 	border: 1px solid #3b4252;
 	padding:1rem;
 	color: #eceff4;
+	font-size:clamp(5px, 3vw, 12pt);
 `
 
 export const SearchTableRow = styled.tr`
@@ -33,6 +34,7 @@ export const SearchTableData = styled.td`
 	border: 1px solid #3b4252;
 	padding:0.5rem;
 	color: #eceff4;
+	font-size:clamp(5px, 3vw, 12pt);
 `
 
 export const SearchBar = styled.input`
