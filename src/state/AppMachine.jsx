@@ -9,14 +9,14 @@ const logout = () =>
 
 const addProductOrLocation = async (context, event) =>
 {
-	// if (context.initialScanResults.result.type === "product")
-	// {
 	const obj =
 	{
 		product_name: context.newProductData.newProductName,
 		product_barcode: context.initialBarcode,
 		product_reference: context.newProductData.newProductReference
 	}
+
+	console.log(JSON.stringify(obj));
 
 	const response = await fetch(`${context.apiLocation}/product`, {
 		method: "POST",
@@ -27,31 +27,18 @@ const addProductOrLocation = async (context, event) =>
 		},
 		body: JSON.stringify(obj)
 
-	}).then((data) =>
-	{
-		if (data)
-		{
-			window.alert(JSON.stringify(data))
-			return true;
-		}
-		else
-		{
-			window.alert(JSON.stringify("nothing " + data))
-			return Error;
-		}
 	})
-	// const data = await response.json();
-	// if (data)
-	// {
-	// 	window.alert(JSON.stringify(data))
-	// 	return true;
-	// }
-	// else
-	// {
-	// 	window.alert(JSON.stringify("nothing " + data))
-	// }
 
-
+	const data = await response.json();
+	if (data)
+	{
+		window.alert(JSON.stringify(data))
+		return true;
+	}
+	else
+	{
+		window.alert(JSON.stringify("nothing " + data))
+	}
 
 }
 
