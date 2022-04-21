@@ -7,7 +7,7 @@ const logout = () =>
 	return true;
 }
 
-const addProductOrLocation = (context, event) =>
+const addProductOrLocation = async (context, event) =>
 {
 	const obj =
 	{
@@ -18,7 +18,7 @@ const addProductOrLocation = (context, event) =>
 
 	console.log(JSON.stringify(obj));
 
-	return fetch(`${context.apiLocation}/product`, {
+	const response = fetch(`${context.apiLocation}/product`, {
 		method: "POST",
 		headers: {
 			authorization: localStorage.getItem("token"),
@@ -27,23 +27,19 @@ const addProductOrLocation = (context, event) =>
 		},
 		body: JSON.stringify(obj)
 
-	}).then((data) =>
-	{
-		window.alert(JSON.stringify(data))
-		data.json()
 	})
 
-	// const data = await response.json();
-	// if (data)
-	// {
-	// 	window.alert(JSON.stringify(data))
+	const data = await response.json();
+	if (data)
+	{
+		window.alert(JSON.stringify(data))
 
-	// 	return true;
-	// }
-	// else
-	// {
-	// 	window.alert(JSON.stringify("nothing " + data))
-	// }
+		return true;
+	}
+	else
+	{
+		window.alert(JSON.stringify("nothing " + data))
+	}
 
 }
 
@@ -51,7 +47,7 @@ const checkInitialBarcode = async (context, event) =>
 {
 	window.alert("Test alert");
 	const response = await fetch(`${context.apiLocation}/product_location/barcode/${context.initialBarcode}`, {
-		method: "POST",
+		method: "GET",
 		headers: {
 			authorization: localStorage.getItem("token"),
 			'Accept': 'application/json',
