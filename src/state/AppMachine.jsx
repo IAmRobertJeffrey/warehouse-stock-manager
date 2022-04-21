@@ -7,7 +7,7 @@ const logout = () =>
 	return true;
 }
 
-const addProductOrLocation = async (context, event) =>
+const addProductOrLocation = (context, event) => async () =>
 {
 	const obj =
 	{
