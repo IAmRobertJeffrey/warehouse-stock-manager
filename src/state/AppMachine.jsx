@@ -7,7 +7,7 @@ const logout = () =>
 	return true;
 }
 
-const addProductOrLocation = (context, event) => async () =>
+const addProductOrLocation = (context, event) =>
 {
 	const obj =
 	{
@@ -18,7 +18,7 @@ const addProductOrLocation = (context, event) => async () =>
 
 	console.log(JSON.stringify(obj));
 
-	const response = await fetch(`${context.apiLocation}/product`, {
+	return fetch(`${context.apiLocation}/product`, {
 		method: "POST",
 		headers: {
 			authorization: localStorage.getItem("token"),
@@ -27,18 +27,23 @@ const addProductOrLocation = (context, event) => async () =>
 		},
 		body: JSON.stringify(obj)
 
-	})
-
-	const data = await response.json();
-	if (data)
+	}).then((data) =>
 	{
 		window.alert(JSON.stringify(data))
-		return true;
-	}
-	else
-	{
-		window.alert(JSON.stringify("nothing " + data))
-	}
+		data.json()
+	})
+
+	// const data = await response.json();
+	// if (data)
+	// {
+	// 	window.alert(JSON.stringify(data))
+
+	// 	return true;
+	// }
+	// else
+	// {
+	// 	window.alert(JSON.stringify("nothing " + data))
+	// }
 
 }
 
