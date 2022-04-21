@@ -27,22 +27,32 @@ const addProductOrLocation = async (context, event) =>
 		},
 		body: JSON.stringify(obj)
 
+	}).then((data) =>
+	{
+		if (data)
+		{
+			window.alert(JSON.stringify(data))
+			return true;
+		}
+		else
+		{
+			window.alert(JSON.stringify("nothing " + data))
+			return Error;
+		}
 	})
-	const data = await response.json();
-	if (data)
-	{
-		window.alert(JSON.stringify(data))
-		return true;
-	}
-	else
-	{
-		window.alert(JSON.stringify("nothing " + data))
-	}
-	// }
-	// else if (context.initialScanResults.result.type === "location")
+	// const data = await response.json();
+	// if (data)
 	// {
-
+	// 	window.alert(JSON.stringify(data))
+	// 	return true;
 	// }
+	// else
+	// {
+	// 	window.alert(JSON.stringify("nothing " + data))
+	// }
+
+
+
 }
 
 const checkInitialBarcode = async (context, event) =>
@@ -307,7 +317,7 @@ export const AppMachine =
 								"target": "#App Machine.Loading"
 							},
 							"onUseToken": {
-								target: "#App Machine.Logged In.Search"
+								"target": "#App Machine.Logged In.Search"
 							},
 						},
 
