@@ -45,7 +45,6 @@ const addProductOrLocation = async (context, event) =>
 
 const checkInitialBarcode = async (context, event) =>
 {
-	window.alert("Test alert");
 	const response = await fetch(`${context.apiLocation}/product_location/barcode/${context.initialBarcode}`, {
 		method: "GET",
 		headers: {
@@ -70,7 +69,7 @@ const checkInitialBarcode = async (context, event) =>
 	else
 	{
 		window.alert("The barcode does not exist. -----" + JSON.stringify(data))
-		return Error;
+		throw Error;
 	}
 }
 
@@ -105,7 +104,7 @@ const submitLogin = async (context, event) =>
 	else
 	{
 		console.log("errored");
-		throw Error;
+		return false;
 	}
 }
 
