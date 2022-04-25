@@ -104,7 +104,7 @@ const submitLogin = async (context, event) =>
 	else
 	{
 		console.log("errored");
-		return false;
+		throw Error;
 	}
 }
 
